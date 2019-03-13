@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "graphite::carbon" do
+describe "socrata-graphite-fork::carbon" do
   let(:runner) do
     ChefSpec::Runner.new { |node| node.automatic["platform_family"] = "debian" }
   end

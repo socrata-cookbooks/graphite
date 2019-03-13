@@ -1,4 +1,4 @@
-include_recipe "graphite::carbon"
+include_recipe "socrata-graphite-fork::carbon"
 
 graphite_carbon_cache "default" do
   config ({

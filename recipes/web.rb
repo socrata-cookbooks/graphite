@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: graphite
+# Cookbook Name:: socrata-graphite-fork
 # Recipe:: web
 #
 # Copyright 2014, Heavy Water Software Inc.
@@ -20,9 +20,9 @@
 include_recipe 'python'
 include_recipe 'python::pip'
 
-include_recipe 'graphite::_user'
-include_recipe 'graphite::_web_packages'
-include_recipe 'graphite::_directories'
+include_recipe 'socrata-graphite-fork::_user'
+include_recipe 'socrata-graphite-fork::_web_packages'
+include_recipe 'socrata-graphite-fork::_directories'
 
 basedir = node['graphite']['base_dir']
 docroot = node['graphite']['doc_root']

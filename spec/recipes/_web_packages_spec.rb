@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "graphite::_web_packages" do
+describe "socrata-graphite-fork::_web_packages" do
 
   let(:runner) { ChefSpec::Runner.new }
   let(:node) { runner.node }

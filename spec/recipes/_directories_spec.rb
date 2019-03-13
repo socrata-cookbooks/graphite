@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'graphite::_directories' do
+describe 'socrata-graphite-fork::_directories' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
   let(:storage) { "/opt/graphite/storage" }
 

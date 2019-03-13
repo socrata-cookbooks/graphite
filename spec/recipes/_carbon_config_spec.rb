@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'graphite::_carbon_config' do
+describe 'socrata-graphite-fork::_carbon_config' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
   let(:file_resource) { chef_run.find_resource(:file, "carbon.conf") }
 

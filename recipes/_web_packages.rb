@@ -24,6 +24,7 @@ Array(node['graphite']['system_packages']).each do |p|
 end
 
 python_pip 'django' do
+  options '--no-binary=:all:'
   version lazy { node['graphite']['django_version'] }
 end
 
@@ -31,6 +32,7 @@ end
 # ImportError: No module named fields
 # with `python manage.py syncdb --noinput`
 python_pip 'django-tagging' do
+  options '--no-binary=:all:'
   version "0.3.6"
 end
 
@@ -40,6 +42,7 @@ python_pip 'python-memcached'
 python_pip 'uwsgi'
 
 python_pip 'graphite_web' do
+  options '--no-binary=:all:'
   package_name lazy {
     key = node['graphite']['install_type']
     node['graphite']['package_names']['graphite_web'][key]
