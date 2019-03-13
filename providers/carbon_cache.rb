@@ -30,6 +30,7 @@ end
 def install_python_pip
   python_pip new_resource.backend_name do
     new_resource.backend_attributes.each { |attr, value| send(attr, value) }
+    options '--no-binary=:all:'
     Chef::Log.info "Installing storage backend: #{package_name}"
     action :install
   end

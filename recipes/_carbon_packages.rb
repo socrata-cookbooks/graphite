@@ -22,10 +22,12 @@ include_recipe "build-essential"
 # sadly, have to pin Twisted to known good version
 # install before carbon so it's used
 python_pip 'Twisted' do
+  options '--no-binary=:all:'
   version lazy { node['graphite']['twisted_version'] }
 end
 
 python_pip 'carbon' do
+  options '--no-binary=:all:'
   package_name lazy {
     node['graphite']['package_names']['carbon'][node['graphite']['install_type']]
   }
