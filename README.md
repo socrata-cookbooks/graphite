@@ -1,3 +1,22 @@
+# Socrata Notes
+
+This is a fork of version 1.0.4 of the
+[sous-chefs/graphite](https://github.com/sous-chefs/graphite)
+cookbook.
+
+It is based off v1.0.4 of upstream instead of upstream's master due to >150 unreleased upstream commits.  This was
+done via:
+
+- fork upstream
+- `git branch -m master upstream-master`
+- `git push origin upstream-master`
+- change default github branch to `upstream-master`
+- `git push origin :master`
+- `git checkout -b master v1.0.4`
+- `git push origin master`
+- change default github branch to `master`
+
+
 # Graphite Cookbook
 
 [![Build Status](https://travis-ci.org/hw-cookbooks/graphite.svg?branch=master)](https://travis-ci.org/hw-cookbooks/graphite)

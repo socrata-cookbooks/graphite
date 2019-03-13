@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'graphite::_user' do
+describe 'socrata-graphite-fork::_user' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
   it "creates the graphite group" do

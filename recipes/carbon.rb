@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: graphite
+# Cookbook Name:: socrata-graphite-fork
 # Recipe:: carbon
 #
 # Copyright 2014, Heavy Water Software Inc.
@@ -20,7 +20,7 @@
 include_recipe 'python'
 include_recipe 'python::pip'
 
-include_recipe "graphite::_user"
-include_recipe "graphite::_carbon_packages"
-include_recipe "graphite::_directories"
-include_recipe "graphite::_carbon_config"
+include_recipe "socrata-graphite-fork::_user"
+include_recipe "socrata-graphite-fork::_carbon_packages"
+include_recipe "socrata-graphite-fork::_directories"
+include_recipe "socrata-graphite-fork::_carbon_config"

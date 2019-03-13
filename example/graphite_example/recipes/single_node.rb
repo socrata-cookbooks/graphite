@@ -1,6 +1,6 @@
 include_recipe "runit"
-include_recipe "graphite::carbon"
-include_recipe "graphite::_web_packages"
+include_recipe "socrata-graphite-fork::carbon"
+include_recipe "socrata-graphite-fork::_web_packages"
 
 storage_dir = node['graphite']['storage_dir']
 
