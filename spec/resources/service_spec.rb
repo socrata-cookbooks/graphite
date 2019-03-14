@@ -2,7 +2,7 @@ require "spec_helper"
 load_resource("graphite", "service")
 load_provider("graphite", "service_runit")
 
-describe Chef::Resource::GraphiteService do
+describe Chef::Resource::SocrataGraphiteForkService do
 
   let(:resource_name) { "mega:beta" }
 
@@ -27,7 +27,7 @@ describe Chef::Resource::GraphiteService do
   end
 
   it "provider defaults the runit service" do
-    expect(resource.provider).to eq(Chef::Provider::GraphiteServiceRunit)
+    expect(resource.provider).to eq(Chef::Provider::SocrataGraphiteForkServiceRunit)
   end
 
   describe "#service_name" do

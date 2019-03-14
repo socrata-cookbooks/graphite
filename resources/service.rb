@@ -24,7 +24,7 @@ attribute :name, kind_of: String, default: nil, name_attribute: true
 
 def initialize(*args)
   super
-  @provider = Chef::Provider::GraphiteServiceRunit
+  @provider = Chef::Provider::SocrataGraphiteForkServiceRunit
 end
 
 def service_name

@@ -2,14 +2,14 @@ require "spec_helper"
 load_provider("graphite", "service_runit")
 load_resource("graphite", "service")
 
-describe Chef::Provider::GraphiteServiceRunit do
+describe Chef::Provider::SocrataGraphiteForkServiceRunit do
 
   before do
     using_libraries("runit")
     node.set[:runit] = Mash.new
   end
 
-  let(:resource_class) { Chef::Resource::GraphiteService }
+  let(:resource_class) { Chef::Resource::SocrataGraphiteForkService }
   let(:resource_name) { "yabbadoo" }
 
   it "is whyrun support" do

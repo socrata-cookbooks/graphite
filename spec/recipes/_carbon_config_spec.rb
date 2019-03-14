@@ -28,8 +28,8 @@ describe 'socrata-graphite-fork::_carbon_config' do
 
   end
 
-  it "to create the graphite_carbon_conf_accumulator resource" do
-    expect(chef_run).to create_graphite_carbon_conf_accumulator("default")
+  it "to create the socrata_graphite_fork_carbon_conf_accumulator resource" do
+    expect(chef_run).to create_socrata_graphite_fork_carbon_conf_accumulator("default")
   end
 
 end
