@@ -25,7 +25,7 @@ file "carbon.conf" do
   action :nothing
 end
 
-graphite_carbon_conf_accumulator "default"
+socrata_graphite_fork_carbon_conf_accumulator "default"
 
 file "storage-schemas.conf" do
   path "#{node['graphite']['base_dir']}/conf/storage-schemas.conf"
@@ -35,4 +35,4 @@ file "storage-schemas.conf" do
   action :nothing
 end
 
-graphite_storage_conf_accumulator "default"
+socrata_graphite_fork_storage_conf_accumulator "default"
