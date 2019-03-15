@@ -25,9 +25,9 @@ attribute :file_resource, kind_of: String, default: "file[carbon.conf]"
 
 def initialize(*args)
   super
-  @provider = Chef::Provider::GraphiteCarbonConfAccumulator
+  @provider = Chef::Provider::SocrataGraphiteForkCarbonConfAccumulator
 end
 
 def carbon_resources
-  [:graphite_carbon_cache, :graphite_carbon_relay, :graphite_carbon_aggregator]
+  [:socrata_graphite_fork_carbon_cache, :socrata_graphite_fork_carbon_relay, :socrata_graphite_fork_carbon_aggregator]
 end
