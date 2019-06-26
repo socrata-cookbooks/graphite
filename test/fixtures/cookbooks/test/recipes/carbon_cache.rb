@@ -1,6 +1,6 @@
-include_recipe 'graphite::carbon'
+include_recipe 'socrata-graphite-fork::carbon'
 
-graphite_carbon_cache 'default' do
+socrata_graphite_fork_carbon_cache 'default' do
   config ({
     enable_logrotation: true,
     user: 'graphite',
@@ -21,7 +21,7 @@ graphite_carbon_cache 'default' do
   })
 end
 
-graphite_carbon_cache 'a' do
+socrata_graphite_fork_carbon_cache 'a' do
   config ({
     line_receiver_port: 2004,
     udp_receiver_port: 2004,
@@ -30,7 +30,7 @@ graphite_carbon_cache 'a' do
   })
 end
 
-graphite_carbon_cache 'b' do
+socrata_graphite_fork_carbon_cache 'b' do
   config ({
     line_receiver_port: 2006,
     udp_receiver_port: 2006,
@@ -39,19 +39,19 @@ graphite_carbon_cache 'b' do
   })
 end
 
-graphite_storage_schema 'carbon' do
+socrata_graphite_fork_storage_schema 'carbon' do
   config ({
     pattern: '^carbon.',
     retentions: '60:90d',
   })
 end
 
-graphite_storage_schema 'default_1min_for_1day' do
+socrata_graphite_fork_storage_schema 'default_1min_for_1day' do
   config ({
     pattern: '.*',
     retentions: '60s:1d',
   })
 end
 
-graphite_service 'cache:a'
-graphite_service 'cache:b'
+socrata_graphite_fork_service 'cache:a'
+socrata_graphite_fork_service 'cache:b'

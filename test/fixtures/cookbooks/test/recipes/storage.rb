@@ -1,2 +1,2 @@
-graphite_storage '/opt/graphite/storage'
-graphite_storage '/srv/graphite/data'
+socrata_graphite_fork_storage '/opt/graphite/storage'
+socrata_graphite_fork_storage '/srv/graphite/data'

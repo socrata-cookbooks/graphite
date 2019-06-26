@@ -1,4 +1,4 @@
-graphite_web_config '/tmp/local_pie_settings.py' do
+socrata_graphite_fork_web_config '/tmp/local_pie_settings.py' do
   config(blueberry: 'pie_is_great',
          should_be: ['chocolate', true, 100],
          cakes: {

@@ -1,10 +1,10 @@
 apt_update 'update' if platform_family?('debian')
-include_recipe 'graphite::carbon'
-include_recipe 'graphite::web'
+include_recipe 'socrata-graphite-fork::carbon'
+include_recipe 'socrata-graphite-fork::web'
 
 storage_dir = node['graphite']['storage_dir']
 
-graphite_carbon_cache 'default' do
+socrata_graphite_fork_carbon_cache 'default' do
   config ({
     enable_logrotation: true,
     user: 'graphite',
@@ -26,25 +26,25 @@ graphite_carbon_cache 'default' do
   })
 end
 
-graphite_storage_schema 'carbon' do
+socrata_graphite_fork_storage_schema 'carbon' do
   config ({
     pattern: '^carbon.',
     retentions: '60:90d',
   })
 end
 
-graphite_storage_schema 'default_1min_for_1day' do
+socrata_graphite_fork_storage_schema 'default_1min_for_1day' do
   config ({
     pattern: '.*',
     retentions: '60s:1d',
   })
 end
 
-graphite_service 'cache'
+socrata_graphite_fork_service 'cache'
 
 base_dir = (node['graphite']['base_dir']).to_s
 
-graphite_web_config "#{base_dir}/webapp/graphite/local_settings.py" do
+socrata_graphite_fork_web_config "#{base_dir}/webapp/graphite/local_settings.py" do
   config(secret_key: 'a_very_secret_key_jeah!',
          time_zone: 'America/Chicago',
          conf_dir: "#{base_dir}/conf",
@@ -72,4 +72,4 @@ python_execute 'bin/django-admin.py migrate --run-syncdb --settings="graphite.se
   creates "#{storage_dir}/graphite.db"
 end
 
-include_recipe 'graphite::uwsgi'
+include_recipe 'socrata-graphite-fork::uwsgi'

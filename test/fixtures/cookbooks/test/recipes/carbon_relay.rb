@@ -1,6 +1,6 @@
-include_recipe 'graphite::carbon'
+include_recipe 'socrata-graphite-fork::carbon'
 
-graphite_carbon_relay 'default' do
+socrata_graphite_fork_carbon_relay 'default' do
   config ({
     line_receiver_interface: '0.0.0.0',
     line_receiver_port: 2003,
