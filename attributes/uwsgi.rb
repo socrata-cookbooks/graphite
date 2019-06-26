@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: graphite
+# Cookbook:: graphite
 # Attributes:: uwsgi
 #
-# Copyright 2014, Heavy Water Ops, LLC
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,11 @@
 
 default['graphite']['uwsgi']['socket'] = '/tmp/uwsgi.sock'
 default['graphite']['uwsgi']['socket_permissions'] = '755'
+default['graphite']['uwsgi']['socket_user'] = 'graphite'
+default['graphite']['uwsgi']['socket_group'] = 'graphite'
 default['graphite']['uwsgi']['workers'] = 8
 default['graphite']['uwsgi']['carbon'] = '127.0.0.1:2003'
 default['graphite']['uwsgi']['listen_http'] = false
 default['graphite']['uwsgi']['port'] = 8080
 default['graphite']['uwsgi']['service_type'] = 'runit'
+default['graphite']['uwsgi']['buffer-size'] = '4096'

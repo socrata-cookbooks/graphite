@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: graphite
+# Cookbook:: socrata-graphite-fork
 # Resource:: carbon_service
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,26 +17,72 @@
 # limitations under the License.
 #
 
-actions :enable, :disable, :restart, :reload
-default_action :enable
+property :debug, [true, false], default: false
 
-attribute :name, kind_of: String, default: nil, name_attribute: true
-
-def initialize(*args)
-  super
-  @provider = Chef::Provider::SocrataGraphiteForkServiceRunit
+action :enable do
+  manage_systemd_service(:enable)
 end
 
-def service_name
-  "carbon-" + name.tr(":", "-")
+action :disable do
+  manage_systemd_service(:disable)
 end
 
-def type
-  t, _ = name.split(":")
-  t
+action :restart do
+  manage_systemd_service(:restart)
 end
 
-def instance
-  _, i = name.split(":")
-  i
+action :reload do
+  manage_systemd_service(:reload)
+end
+
+action_class do
+  def manage_systemd_service(resource_action)
+    virtual_env_path = "#{node['graphite']['base_dir']}/bin"
+    exec_attrs = instance ? ["--instance #{instance}"] : []
+    exec_attrs << (new_resource.debug ? '--debug' : '--nodaemon')
+    exec_attrs << 'start'
+    exec_attrs = exec_attrs.join(' ')
+
+    service_unit_content = {
+      'Unit' => {
+        'Description' => "Graphite Carbon #{type} #{instance}",
+        'After' => 'network.target',
+      },
+      'Service' => {
+        'Type' => 'simple',
+        'ExecStart' => "#{virtual_env_path}/python #{virtual_env_path}/carbon-#{type}.py #{exec_attrs}",
+        'User' => node['graphite']['user'],
+        'Group' => node['graphite']['group'],
+        'Restart' => 'on-abort',
+        'LimitNOFILE' => node['graphite']['limits']['nofile'],
+        'PIDFile' => "#{node['graphite']['storage_dir']}/#{service_name}.pid",
+      },
+      'Install' => { 'WantedBy' => 'multi-user.target' },
+    }
+
+    systemd_unit "#{service_name}.service" do
+      content service_unit_content
+      action :create
+      notifies(:restart, "service[#{service_name}]")
+    end
+
+    service service_name do
+      supports status: true
+      action resource_action
+    end
+  end
+
+  def service_name
+    'carbon-' + new_resource.name.tr(':', '-')
+  end
+
+  def type
+    t, = new_resource.name.split(':')
+    t
+  end
+
+  def instance
+    _, i = new_resource.name.split(':')
+    i
+  end
 end

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: graphite
+# Cookbook:: socrata-graphite-fork
 # Recipe:: carbon
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,22 +17,34 @@
 # limitations under the License.
 #
 
-file "carbon.conf" do
+directory 'conf dir' do
+  path "#{node['graphite']['base_dir']}/conf"
+  owner node['graphite']['user']
+  group node['graphite']['group']
+  mode '755'
+  recursive true
+end
+
+file 'carbon.conf' do
   path "#{node['graphite']['base_dir']}/conf/carbon.conf"
   owner node['graphite']['user']
   group node['graphite']['group']
-  mode 0644
+  mode '644'
   action :nothing
 end
 
-socrata_graphite_fork_carbon_conf_accumulator "default"
+socrata_graphite_fork_carbon_conf_accumulator 'default' do
+  sort_configs node['graphite']['sort_configs']
+end
 
-file "storage-schemas.conf" do
+file 'storage-schemas.conf' do
   path "#{node['graphite']['base_dir']}/conf/storage-schemas.conf"
   owner node['graphite']['user']
   group node['graphite']['group']
-  mode 0644
+  mode '644'
   action :nothing
 end
 
-socrata_graphite_fork_storage_conf_accumulator "default"
+socrata_graphite_fork_storage_conf_accumulator 'default' do
+  sort_schemas node['graphite']['sort_storage_schemas']
+end
