@@ -24,7 +24,7 @@ python_package 'django' do
   group node['graphite']['group']
   version lazy { node['graphite']['django_version'] }
   virtualenv node['graphite']['base_dir']
-  only_if do
+  not_if do
     # Install explicit version of django only if it is specified in attributes
     version = node['graphite']['django_version']
     version.nil? || version.empty?
