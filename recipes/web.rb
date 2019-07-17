@@ -2,7 +2,7 @@
 # Cookbook Name:: socrata-graphite-fork
 # Recipe:: web
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe 'python'
-include_recipe 'python::pip'
+python_runtime 'webs_python' do
+  provider :system
+  version '2.7'
+  options pip_version: true
+end
+
+python_virtualenv node['graphite']['base_dir']
 
 include_recipe 'socrata-graphite-fork::_user'
 include_recipe 'socrata-graphite-fork::_web_packages'
@@ -34,7 +39,7 @@ directory "#{storagedir}/log/webapp" do
   recursive true
 end
 
-%w{ info.log exception.log access.log error.log }.each do |file|
+%w( info.log exception.log access.log error.log ).each do |file|
   file "#{storagedir}/log/webapp/#{file}" do
     owner node['graphite']['user']
     group node['graphite']['group']
@@ -54,7 +59,7 @@ end
 
 template "#{basedir}/conf/graphTemplates.conf" do
   source 'graphTemplates.conf.erb'
-  mode 00755
+  mode '755'
   variables(
     graph_templates: node['graphite']['graph_templates']
   )

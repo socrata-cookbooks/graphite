@@ -2,7 +2,7 @@
 # Cookbook Name:: socrata-graphite-fork
 # Recipe:: packages
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "socrata-graphite-fork::_carbon_packages"
-include_recipe "socrata-graphite-fork::_web_packages"
+include_recipe '::_carbon_packages'
+include_recipe '::_web_packages'

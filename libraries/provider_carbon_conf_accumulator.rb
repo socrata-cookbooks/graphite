@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: graphite
+# Cookbook:: socrata-graphite-fork
 # Provider:: provider_carbon_conf_accumulator
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,15 +42,13 @@ class Chef
 
         # raw ini data, string constant
         contents = "# This file is managed by Chef, your changes *will* be overwritten!\n\n"
-        contents << ChefGraphite.ini_file(resources_to_hashes(resources, carbon_resources))
+        contents << ChefGraphite.ini_file(resources_to_hashes(resources, carbon_resources), new_resource.sort_configs)
         file_resource.content contents
 
         file_resource.run_action(:create)
-
-        if file_resource.updated_by_last_action?
-          new_resource.updated_by_last_action(true)
-        end
-
+        # While we are not using sub-resources, state of current resource
+        # should use updated_by_last_action method, so FC085 disabled
+        new_resource.updated_by_last_action(file_resource.updated_by_last_action?) # ~FC085
       end
     end
   end

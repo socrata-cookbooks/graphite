@@ -2,7 +2,7 @@
 # Cookbook Name:: socrata-graphite-fork
 # Recipe:: carbon
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,25 @@
 # limitations under the License.
 #
 
-include_recipe 'python'
-include_recipe 'python::pip'
+python_runtime 'carbons_python' do
+  provider :system
+  version '2.7'
+  options pip_version: true
+end
 
-include_recipe "socrata-graphite-fork::_user"
-include_recipe "socrata-graphite-fork::_carbon_packages"
-include_recipe "socrata-graphite-fork::_directories"
-include_recipe "socrata-graphite-fork::_carbon_config"
+include_recipe '::_user'
+
+directory node['graphite']['base_dir'] do
+  owner node['graphite']['user']
+  group node['graphite']['group']
+end
+
+python_virtualenv node['graphite']['base_dir'] do
+  user node['graphite']['user']
+  group node['graphite']['group']
+end
+
+include_recipe '::_user'
+include_recipe '::_carbon_packages'
+include_recipe '::_directories'
+include_recipe '::_carbon_config'

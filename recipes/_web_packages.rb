@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: graphite
+# Cookbook:: graphite
 # Recipe:: _web_packages
 #
-# Copyright 2014, Heavy Water Software Inc.
+# Copyright:: 2014-2016, Heavy Water Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,32 +17,28 @@
 # limitations under the License.
 #
 
-include_recipe "yum-epel" if platform_family?("rhel")
+package Array(node['graphite']['system_packages'])
 
-Array(node['graphite']['system_packages']).each do |p|
-  package p
-end
-
-python_pip 'django' do
-  options '--no-binary=:all:'
+python_package 'django' do
+  user node['graphite']['user']
+  group node['graphite']['group']
   version lazy { node['graphite']['django_version'] }
+  virtualenv node['graphite']['base_dir']
+  not_if do
+    # Install explicit version of django only if it is specified in attributes
+    version = node['graphite']['django_version']
+    version.nil? || version.empty?
+  end
 end
 
-# The latest version is 0.4, which causes an importError
-# ImportError: No module named fields
-# with `python manage.py syncdb --noinput`
-python_pip 'django-tagging' do
-  options '--no-binary=:all:'
-  version "0.3.6"
+python_package 'uwsgi' do
+  user node['graphite']['user']
+  group node['graphite']['group']
+  options '--isolated'
+  virtualenv node['graphite']['base_dir']
 end
 
-python_pip 'pytz'
-python_pip 'pyparsing'
-python_pip 'python-memcached'
-python_pip 'uwsgi'
-
-python_pip 'graphite_web' do
-  options '--no-binary=:all:'
+python_package 'graphite_web' do
   package_name lazy {
     key = node['graphite']['install_type']
     node['graphite']['package_names']['graphite_web'][key]
@@ -50,4 +46,8 @@ python_pip 'graphite_web' do
   version lazy {
     node['graphite']['version'] if node['graphite']['install_type'] == 'package'
   }
+  user node['graphite']['user']
+  group node['graphite']['group']
+  install_options '--no-binary=:all:'
+  virtualenv node['graphite']['base_dir']
 end
