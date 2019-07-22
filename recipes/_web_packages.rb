@@ -34,11 +34,11 @@ end
 python_package 'uwsgi' do
   user node['graphite']['user']
   group node['graphite']['group']
-  options '--isolated'
+  install_options '--isolated'
   virtualenv node['graphite']['base_dir']
 end
 
-python_package 'graphite_web' do
+python_package 'graphite-web' do
   package_name lazy {
     key = node['graphite']['install_type']
     node['graphite']['package_names']['graphite_web'][key]
@@ -50,4 +50,10 @@ python_package 'graphite_web' do
   group node['graphite']['group']
   install_options '--no-binary=:all:'
   virtualenv node['graphite']['base_dir']
+  not_if do
+    sh = shell_out!("#{node['graphite']['base_dir']}/bin/pip list --format json",
+                    env: { PYTHONPATH: "#{node['graphite']['base_dir']}/webapp" })
+    json = JSON.parse(sh.stdout)
+    json.find { |i| i['name'] == 'graphite-web' && i['version'] == node['graphite']['version'] }
+  end
 end

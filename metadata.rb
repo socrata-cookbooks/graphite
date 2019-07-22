@@ -4,7 +4,7 @@ maintainer_email 'sysadmin@socrata.com'
 license          'Apache 2.0'
 description      'Installs/Configures graphite'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '999.1.1'
+version          '999.1.2'
 
 supports 'ubuntu'
 supports 'debian'
