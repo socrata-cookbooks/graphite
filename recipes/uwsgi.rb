@@ -18,7 +18,7 @@
 #
 
 command = "#{node['graphite']['base_dir']}/bin/uwsgi --processes #{node['graphite']['uwsgi']['workers']}"
-command << " --plugins carbon --carbon #{node['graphite']['uwsgi']['carbon']}" if node['graphite']['uwsgi']['carbon']
+command << " --carbon #{node['graphite']['uwsgi']['carbon']}" if node['graphite']['uwsgi']['carbon']
 command << " --http :#{node['graphite']['uwsgi']['port']}" if node['graphite']['uwsgi']['listen_http']
 command << " --pythonpath #{node['graphite']['base_dir']}/lib \
 --pythonpath #{node['graphite']['base_dir']}/webapp/graphite \
