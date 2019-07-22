@@ -47,4 +47,10 @@ python_package 'carbon' do
   group node['graphite']['group']
   install_options '--no-binary=:all:'
   virtualenv node['graphite']['base_dir']
+  not_if do
+    sh = shell_out!("#{node['graphite']['base_dir']}/bin/pip list --format json",
+                    env: { PYTHONPATH: "#{node['graphite']['base_dir']}/lib" })
+    json = JSON.parse(sh.stdout)
+    json.find { |i| i['name'] == 'carbon' && i['version'] == node['graphite']['version'] }
+  end
 end
