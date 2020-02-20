@@ -2,7 +2,11 @@
 
 This file is used to list changes made in each version of the graphite cookbook.
 
-## 999.0.3
+## 999.1.4
+
+- Ensure graphite user has a home dir at `/var/lib/graphite`
+
+## 999.1.3
 
 - Migrate to `snu_python` over `poise-python`
 - Install `Graphite@1.1.6`

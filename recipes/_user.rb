@@ -30,3 +30,10 @@ user node['graphite']['user'] do
   manage_home true
   action :create
 end
+
+directory '/var/lib/graphite' do
+  owner node['graphite']['user']
+  group node['graphite']['group']
+  mode '0755'
+  action :create
+end
