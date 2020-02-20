@@ -31,7 +31,7 @@ python_package 'django' do
   end
 end
 
-python_package 'uwsgi' do
+python_package 'pyuwsgi' do
   user node['graphite']['user']
   group node['graphite']['group']
   install_options '--isolated'
