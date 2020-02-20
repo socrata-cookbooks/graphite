@@ -2,8 +2,14 @@
 
 This file is used to list changes made in each version of the graphite cookbook.
 
+## 999.0.3
 
-## 1.0.6 
+- Migrate to `snu_python` over `poise-python`
+- Install `Graphite@1.1.6`
+- Install python package `pyuwsgi` instead of `uwsgi` due to build errors from
+  the new pip release
+
+## 1.0.6
 
 - Syntax and styling updates
 - Compatibility with Chef 13 (.[@oscar123mendoza])
